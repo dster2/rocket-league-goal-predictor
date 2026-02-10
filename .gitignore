@@ -39,3 +39,9 @@
 
 # debug information files
 *.dwo
+
+.vs/
+build/
+plugins/
+vcpkg_installed/
+release.zip
