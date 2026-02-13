@@ -14,14 +14,14 @@ private:
 	std::shared_ptr<bool> enabled;
 	std::shared_ptr<CVarWrapper> enabledCvar;
 
+	std::shared_ptr<bool> showTitleBar;
+	std::shared_ptr<CVarWrapper> showTitleBarCvar;
+
 	std::shared_ptr<int> opacityPct;
 	std::shared_ptr<CVarWrapper> opacityPctCvar;
 	const int DEFAULT_OPACITY = 50;
 	const int MIN_OPACITY = 0;
 	const int MAX_OPACITY = 100;
-
-	std::shared_ptr<bool> showTitleBar;
-	std::shared_ptr<CVarWrapper> showTitleBarCvar;
 
 	std::shared_ptr<int> graphHistoryMs;
 	std::shared_ptr<CVarWrapper> graphHistoryMsCvar;

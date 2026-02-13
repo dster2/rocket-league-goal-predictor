@@ -5,7 +5,7 @@
 #include "version.h"
 #include <future>
 
-BAKKESMOD_PLUGIN(GoalPredictor, "Goal Predictor", stringify(VERSION_MAJOR) "." stringify(VERSION_MINOR) "." stringify(VERSION_PATCH), PLUGINTYPE_THREADED | PLUGINTYPE_SPECTATOR | PLUGINTYPE_REPLAY)
+BAKKESMOD_PLUGIN(GoalPredictor, "Goal Predictor", stringify(VERSION_MAJOR) "." stringify(VERSION_MINOR) "." stringify(VERSION_PATCH), PLUGINTYPE_SPECTATOR | PLUGINTYPE_REPLAY)
 
 std::shared_ptr<CVarManagerWrapper> _globalCvarManager;
 
@@ -61,16 +61,7 @@ void GoalPredictor::LoadCVars() {
 	enabled = std::make_shared<bool>(enabledCvar->getBoolValue());
 	enabledCvar->addOnValueChanged([this](std::string cvarName, CVarWrapper newCvar) {
 		*enabled = newCvar.getBoolValue();
-		if (!*enabled) {
-			gameDataTracker.Clear();
-		}
-	});
-
-	opacityPctCvar = std::make_shared<CVarWrapper>(
-		cvarManager->registerCvar("GoalPredictor_Opacity", std::to_string(DEFAULT_OPACITY), "Background Opacity %", true, true, (float)MIN_OPACITY, true, (float)MAX_OPACITY));
-	opacityPct = std::make_shared<int>(opacityPctCvar->getIntValue());
-	opacityPctCvar->addOnValueChanged([this](std::string cvarName, CVarWrapper newCvar) {
-		*opacityPct = newCvar.getIntValue();
+		ResetLocalState();
 	});
 
 	showTitleBarCvar = std::make_shared<CVarWrapper>(
@@ -78,6 +69,13 @@ void GoalPredictor::LoadCVars() {
 	showTitleBar = std::make_shared<bool>(showTitleBarCvar->getBoolValue());
 	showTitleBarCvar->addOnValueChanged([this](std::string cvarName, CVarWrapper newCvar) {
 		*showTitleBar = newCvar.getBoolValue();
+	});
+
+	opacityPctCvar = std::make_shared<CVarWrapper>(
+		cvarManager->registerCvar("GoalPredictor_Opacity", std::to_string(DEFAULT_OPACITY), "Background Opacity %", true, true, (float)MIN_OPACITY, true, (float)MAX_OPACITY));
+	opacityPct = std::make_shared<int>(opacityPctCvar->getIntValue());
+	opacityPctCvar->addOnValueChanged([this](std::string cvarName, CVarWrapper newCvar) {
+		*opacityPct = newCvar.getIntValue();
 	});
 
 	graphHistoryMsCvar = std::make_shared<CVarWrapper>(

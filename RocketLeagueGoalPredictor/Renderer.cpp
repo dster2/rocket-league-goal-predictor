@@ -476,7 +476,7 @@ void GoalPredictor::RenderWindow() {
 }
 
 void GoalPredictor::RenderSettings() {
-	if (!enabledCvar || !opacityPctCvar || !graphHistoryMsCvar || !augmentationCvar) {
+	if (!enabledCvar || !showTitleBarCvar || !opacityPctCvar || !graphHistoryMsCvar || !augmentationCvar) {
 		ImGui::TextUnformatted("Loading...");
 		return;
 	}
@@ -491,6 +491,13 @@ void GoalPredictor::RenderSettings() {
 	ImGui::SetWindowFontScale(1.25f);
 	ImGui::Text("INTERFACE");
 	ImGui::SetWindowFontScale(1.0f);
+
+	ImGui::NewLine();
+
+	bool _showTitleBar = *showTitleBar;
+	if (ImGui::Checkbox("Show Title Bar", &_showTitleBar)) {
+		showTitleBarCvar->setValue(_showTitleBar);
+	}
 
 	ImGui::NewLine();
 
@@ -512,13 +519,6 @@ void GoalPredictor::RenderSettings() {
 	ImGui::SameLine();
 	if (ImGui::Button("Reset to default##graphHistory")) {
 		graphHistoryMsCvar->setValue(DEFAULT_GRAPH_HISTORY);
-	}
-
-	ImGui::NewLine();
-
-	bool _showTitleBar = *showTitleBar;
-	if (ImGui::Checkbox("Show Title Bar", &_showTitleBar)) {
-		showTitleBarCvar->setValue(_showTitleBar);
 	}
 
 	ImGui::NewLine();
