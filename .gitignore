@@ -44,4 +44,4 @@
 build/
 plugins/
 vcpkg_installed/
-release.zip
+GoalPredictor.zip

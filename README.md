@@ -2,7 +2,7 @@
 
 ![Screenshot](https://github.com/user-attachments/assets/107c7af5-59cb-4955-bedf-b42e1cb8f8bb)
 
-**Goal Predictor** is a [BakkesMod](https://bakkesmod.com/) plugin for Rocket League that runs a machine learning model to predict the probability of each team scoring within the next 10 seconds. The predictions are rendered as a real-time scrolling graph overlay, allowing you to visualize which team has the advantage as it shifts. We use a Transformer-based model trained on **RLCS data**.
+**Goal Predictor** is a [BakkesMod plugin](https://bakkesplugins.com/plugin/752) for Rocket League that runs a machine learning model to predict the probability of each team scoring within the next 10 seconds. The predictions are rendered as a real-time scrolling graph overlay, allowing you to visualize which team has the advantage as it shifts. We use a Transformer-based model trained on **RLCS data**.
 
 This plugin currently only works for **3v3 matches** when **spectating** online games or viewing **replays**.
 
@@ -41,6 +41,8 @@ You can use your own ML model instead of the included one. The plugin just reads
 
 The model takes input tensor of shape `(Batch, 114)` and returns outputs of shape `(Batch, 3)`, all `float32` type, whose data formats correspond exactly to the test set inputs and outputs of the [Kaggle Competition](https://www.kaggle.com/competitions/rocket-league-rlcs-goal-prediction-2025) (besides the `id` column).  Note: just like how the Competition's test inputs have some `null` entries (e.g. when a player is demoed) the plugin sometimes send `nan` values in its input tensors which your model must handle gracefully.
 
+However, it is possible that future versions of this plugin could introduce breaking changes to the expected input or output formats.
+
 ## Installation
 
 1. Navigate to the [Releases](https://github.com/dster2/rocket-league-goal-predictor/releases) page and download the latest `zip` file.
@@ -60,4 +62,4 @@ I used Visual Studio 2022 (v143) with C++ 20.
 
 ### Data files
 
-If you build locally make sure to copy the contents of `Release/bakkesmod/data` into your installed `bakkesmod/data` folder to get the model and font data files required by the plugin.
+If you build locally make sure to copy the contents of `RocketLeagueGoalPredictor/data` into your installed `bakkesmod/data` folder to get the model and font data files required by the plugin.
